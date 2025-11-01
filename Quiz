@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My MCQ Quiz</title>
+  <style>
+    body { font-family: Arial; max-width: 600px; margin: auto; padding: 20px; }
+    .question { font-weight: bold; }
+    button { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h2>MCQ Quiz</h2>
+  <div id="quiz"></div>
+  <button onclick="nextQuestion()">Next Question</button>
+
+  <script>
+    const quizData = [
+      {
+        question: "What is 2 + 2?",
+        options: ["3", "4", "5", "6"],
+        correct: "4"
+      },
+      {
+        question: "Which planet is known as the Red Planet?",
+        options: ["Earth", "Mars", "Venus", "Jupiter"],
+        correct: "Mars"
+      }
+    ];
+
+    let current = 0;
+    const quizDiv = document.getElementById("quiz");
+
+    function loadQuestion() {
+      const q = quizData[current];
+      quizDiv.innerHTML = `
+        <div class="question">${q.question}</div>
+        ${q.options.map(opt => 
+          `<button onclick="checkAnswer('${opt}')">${opt}</button>`
+        ).join("<br>")}
+      `;
+    }
+
+    function checkAnswer(answer) {
+      const correct = quizData[current].correct;
+      alert(answer === correct ? "✅ Correct!" : "❌ Wrong! Correct is: " + correct);
+    }
+
+    function nextQuestion() {
+      current = (current + 1) % quizData.length;
+      loadQuestion();
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
